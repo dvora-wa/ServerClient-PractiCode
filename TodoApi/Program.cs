@@ -37,15 +37,17 @@ app.MapPost("/items", async ( ToDoDbContext db,Item newTask) => {
     return Results.Created($"/item/{newTask.Id}", newTask);
 });
 
-app.MapPut("/items/{id}", async (ToDoDbContext db ,int id,bool inputTask) =>
+app.MapPut("/items/{id}", async (ToDoDbContext db, int id, Item updatedTask) =>
 {
     var task = await db.Items.FindAsync(id);
 
     if (task is null) return Results.NotFound();
-    task.IsComplete = !task.IsComplete;
+    
+    task.IsComplete = updatedTask.IsComplete; // עדכון הסטטוס של המשימה
     await db.SaveChangesAsync();
     return Results.Ok(task);
 });
+
 app.MapDelete("/items/{id}", async (ToDoDbContext db, int id) =>
 {
     var task = await db.Items.FindAsync(id);
