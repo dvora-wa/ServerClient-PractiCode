@@ -7,6 +7,7 @@ namespace TodoApi;
 
 public partial class ToDoDbContext : DbContext
 {
+    private IConfiguration _configuration;
     public ToDoDbContext()
     {
     }
