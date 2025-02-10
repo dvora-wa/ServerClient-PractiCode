@@ -1,10 +1,33 @@
-import renderApi from '@api/render-api';
+import express from 'express';
+import axios from 'axios';
 
-renderApi.auth('rnd_o0uLBkfyehMNNMkL2yuDKfnMNz8f');
-renderApi.listServices({includePreviews: 'true', limit: '20'})
-  .then(({ data }) => console.log(data))
-  .catch(err => console.error(err));
+const app = express();
+const port = process.env.PORT || 3000;
 
+// הכנס את ה-API Key שלך כאן
+const apiKey = 'rnd_o0uLBkfyehMNNMkL2yuDKfnMNz8f';
+
+app.get('/services', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.render.com/v1/services', {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+      params: {
+        includePreviews: 'true',
+        limit: '20',
+      },
+    });
+    res.json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch services' });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
 
 // const express = require('express');
