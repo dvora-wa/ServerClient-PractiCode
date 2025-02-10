@@ -18,14 +18,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseCors("AllowAllOrigins");
-
+app.MapGet("/",()=>"serever-items is runing!");
 app.MapGet("/items", async (ToDoDbContext db) =>{
 var a= await db.Items.ToListAsync();
 return Results.Ok(a);
