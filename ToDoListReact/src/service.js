@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:5150/items";
+axios.defaults.baseURL = "https://server-practicode.onrender.com";
 
 axios.interceptors.response.use(
   response => response,
