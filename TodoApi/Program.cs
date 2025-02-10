@@ -4,7 +4,8 @@ using ToDoDbContext = TodoApi.ToDoDbContext;
 using Task = TodoApi.Item;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ToDoDbContext>();
+builder.Services.AddDbContext<ToDoDbContext>(options =>
+options.UseMySQL(config.GetConnectionString("ToDoDB")));
 
 builder.Services.AddCors(options =>
 {
