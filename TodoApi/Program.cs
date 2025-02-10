@@ -25,7 +25,7 @@ var app = builder.Build();
 // }
 
 app.UseCors("AllowAllOrigins");
-app.MapGet("/",()=>"serever-items is runing!")
+app.MapGet("/",()=>"serever-items is runing!");
 app.MapGet("/items", async (ToDoDbContext db) =>{
 var a= await db.Items.ToListAsync();
 return Results.Ok(a);
